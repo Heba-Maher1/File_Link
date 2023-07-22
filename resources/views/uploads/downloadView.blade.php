@@ -20,6 +20,7 @@
             </div>
         </div>
         <a href="{{ route('download', $file->shared_link) }}" class="btn btn-lg btn-block w-100 text-white mb-2" style="background: #456991">Download</a>
+        <a href="{{ route('index') }}" >Send another?</a>
     </div>   
 
     <div id="detailContainer" class=" position-absolute bg-white d-none" style="height: 100vh;width:50%;top:0;right:0">
