@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class FilesController extends Controller
 {
-    //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -47,18 +52,24 @@ class FilesController extends Controller
 
 
     public function show($id)
+    {
+        $file = File::findOrFail($id);
+
+        if(!$file)
         {
-            $file = File::findOrFail($id);
-    
-            if(!$file)
-            {
-                abort(404);
-            }
-    
-            return view('uploads.show' , [
-                'file' => $file,
-            ]);
-        } 
+            abort(404);
+        }
+
+        $link = URL::signedRoute('downloadView', [
+            'link' => $file->shared_link,
+        ]);
+
+        return view('uploads.show', [
+            'file' => $file,
+            'link' => $link,
+        ]);
+    }
+
 
         
         public function downloadView($link)

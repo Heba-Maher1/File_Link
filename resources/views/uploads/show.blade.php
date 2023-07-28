@@ -4,9 +4,9 @@
                 <img src="{{ asset('assets/done.png') }}" width="150" height="150" class="mb-4" alt="">
                 <h3 class="mb-4">You're Done!</h3>
                 <p class="text-secondary mb-4">Copy your download link</p>
-                <div id="textToCopy" class="text-secondary py-3 px-3 border mb-4">{{ $file->shared_link }}</div>
+                <div id="textToCopy" class="text-secondary py-3 px-3 border mb-4">{{ $link }}</div>
                 <a id="copyBtn" onclick="copyText()" class="btn btn-lg btn-block w-100 text-white mb-2" style="background: #456991">Copy Link</a>
-                <div id="copyNotification" class="text-success" style="display: none;">Text copied to clipboard!</div>
+                <div id="copyNotification" class="text-success" style="display: none;">Text copied!</div>
             </div>
     </div>
 
@@ -23,7 +23,8 @@
 
         try {
             const successful = document.execCommand("copy");
-            if (successful) {            const copyNotification = document.getElementById("copyNotification");
+            if (successful) {           
+            const copyNotification = document.getElementById("copyNotification");
             copyNotification.style.display = "block";
             setTimeout(() => {
                 copyNotification.style.display = "none";

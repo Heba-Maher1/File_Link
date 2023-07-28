@@ -19,9 +19,9 @@ return new class extends Migration
                   ->cascadeOnDelete();
             $table->string('uploaded_file');
             $table->string('name')->nullable();
-            $table->string('message')->nullable();
+            $table->text('message')->nullable();
             $table->double('size')->nullable();
-            $table->uuid('shared_link')->unique();
+            $table->uuid('shared_link')->null();
             $table->timestamps();
         });
     }
