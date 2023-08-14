@@ -10,7 +10,7 @@ class File extends Model
 {
     use HasFactory;
 
-    public static string $disk = 'public';
+    public static string $disk = 'local';
 
     protected $fillable = [ 'uploaded_file' , 'name', 'message', 'size' , 'shared_link' ];
 
