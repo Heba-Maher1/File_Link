@@ -24,9 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-        
-
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -34,12 +31,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth'])->group(function(){
     Route::get('/home' , [FilesController::class , 'index'])->name('index');
     Route::post('/upload', [FilesController::class , 'upload'])->name('upload');
     Route::get('/show/{id}', [FilesController::class , 'show'])->name('show');
+    Route::delete('/delete/{file}' , [FilesController::class , 'destroy'])->name('destroy');
     Route::get('/{link}', [FilesController::class, 'downloadView'])->name('downloadView');
     Route::get('/download/{link}', [FilesController::class, 'download'])->name('download');
-    Route::delete('/delete/{file}' , [FilesController::class , 'destroy'])->name('destroy');
-});
-

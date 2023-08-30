@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FileDownloaded;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,6 @@ use Illuminate\Support\Str;
 class FilesController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index()
     {
@@ -38,7 +35,7 @@ class FilesController extends Controller
             ]);
         
             $file = new File();
-            $file->user_id = Auth::id();
+            // $file->user_id = Auth::id();
             $file->uploaded_file = $filePath;
             $file->name = $uploadedFile->getClientOriginalName();
             $file->size = $request->input('size');
@@ -74,16 +71,21 @@ class FilesController extends Controller
 
         public function downloadView($link)
         {
-            $files = File::orderBy('created_at' , 'DESC')->where('user_id' ,'=' ,Auth::id())->get();
+            $files = File::orderBy('created_at' , 'DESC')->get();
+
             $file = File::where('shared_link', $link)->firstOrFail();
 
             return view('uploads.downloadView', compact('files' , 'file'));
         }
 
-        public function download($link)
+        public function download(Request $request , $link)
         {
             $file = File::where('shared_link', $link)->firstOrFail();
+           
             $filePath = storage_path('app/' . $file->uploaded_file); //app/public/uploads/image
+           
+            event(new FileDownloaded($file, $request->userAgent(), $request->ip(), 'Gaza')); // You need to determine the country
+
             return response()->download($filePath, $file->name);
         }
 
