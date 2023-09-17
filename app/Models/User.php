@@ -42,4 +42,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function hasActiveSubscription()
+    {
+        // Check if the user has an active subscription
+        return $this->subscriptions()
+            ->where('status', 'active')
+            ->where('expires_at', '>=', now())
+            ->exists();
+    }
+
+    public function hasCompletedPayment()
+    {
+        // Check if the user has a completed payment
+        return $this->payment()
+            ->where('status', 'completed')
+            ->exists();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }

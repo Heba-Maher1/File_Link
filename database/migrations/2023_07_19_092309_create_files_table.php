@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')
-            //       ->nullable()
-            //       ->constrained()
-            //       ->cascadeOnDelete();
+            $table->foreignId('user_id')
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
             $table->string('uploaded_file');
             $table->string('name')->nullable();
             $table->text('message')->nullable();

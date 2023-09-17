@@ -12,7 +12,7 @@ class File extends Model
 
     public static string $disk = 'local';
 
-    protected $fillable = [ 'uploaded_file' , 'name', 'message', 'size' , 'shared_link' ];
+    protected $fillable = [ 'user_id','uploaded_file' , 'name', 'message', 'size' , 'shared_link' ];
 
  
 }

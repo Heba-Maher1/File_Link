@@ -45,5 +45,6 @@ class FileDownloadedLog
         $data = $response->json();
 
         return isset($data['country_name']) ? $data['country_name'] : null;
+        
     }
 }
