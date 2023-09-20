@@ -25,6 +25,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth' , 'subscribed'])->group(function () {
     Route::post('/send-email-transfer', [MailController::class, 'sendEmailTransfer'])->name('sendEmailTransfer');
     Route::get('/email-form', [MailController::class, 'emailForm'])->name('emailForm');
+    Route::get('/already-subscribed',function(){
+        return view('alreadySubscribe');
+    })->name('alreadySubscribe');
+    Route::get('/payment-success',function(){
+        return view('paymentSuccess');
+    })->name('paymentSuccess');
 });
 
 require __DIR__.'/auth.php';

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\HasPrice;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,11 @@ class Subscription extends Model
     protected $casts = [
         'expires_at' => 'datetime',
     ];
+
+    public function prunable(): Builder
+    {
+        return static::where('expires_at' , '<=' , now()->subYear());
+    }
 
 
     public function user()

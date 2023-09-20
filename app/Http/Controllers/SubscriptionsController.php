@@ -15,7 +15,7 @@ class SubscriptionsController extends Controller
 
         // Check if the user has an active subscription
         if ($user->hasActiveSubscription()) {
-            return response('You Are Already Subscribed' , 300);
+            return redirect()->route('alreadySubscribe');
         }
         
         $request->validate([

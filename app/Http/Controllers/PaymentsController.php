@@ -52,6 +52,7 @@ class PaymentsController extends Controller
 
         return redirect()->away($checkout_session->url);
     }
+    
     public function store(Request $request, Subscription $subscription)
     {
 
@@ -78,9 +79,7 @@ class PaymentsController extends Controller
 
     public function success()
     {
-        return view('uploads.home', [
-            'file' => new File(),
-        ])->with('success' , 'Payment Completed Successfully');
+        return redirect()->route('paymentSuccess');
     }
 
     public function cancel()
